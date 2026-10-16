@@ -1,0 +1,6 @@
+{
+  "name": "AI Agent SOP dan Regulasi",
+  "description": "Sistem AI Agent cerdas untuk pencarian SOP internal dan verifikasi status keberlakuan regulasi hukum terpadu JDIH berbasis RBAC instansi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
