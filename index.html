@@ -12,6 +12,34 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script>
+      // Platform constraint: HMR is disabled in AI Studio preview. Ignore WebSocket errors.
+      window.addEventListener('error', function(e) {
+        if (
+          (e.message && (
+            e.message.includes('WebSocket') ||
+            e.message.includes('createWebSocketModuleRunnerTransport') ||
+            e.message.includes('@vite/client')
+          )) ||
+          (e.filename && e.filename.includes('@vite/client'))
+        ) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          return true;
+        }
+      }, true);
+      window.addEventListener('unhandledrejection', function(e) {
+        var reason = e.reason ? String(e.reason) : '';
+        if (
+          reason.includes('WebSocket') ||
+          reason.includes('createWebSocketModuleRunnerTransport') ||
+          reason.includes('@vite/client')
+        ) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+        }
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>

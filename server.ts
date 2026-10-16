@@ -935,10 +935,18 @@ app.post('/api/test/reset', (req: Request, res: Response) => {
 // Setup Vite middleware in dev or static files in production
 async function startServer() {
   const isProd = process.env.NODE_ENV === 'production';
+  const http = await import('http');
+  const httpServer = http.createServer(app);
+
   if (!isProd) {
     const { createServer } = await import('vite');
     const vite = await createServer({
-      server: { middlewareMode: true },
+      server: {
+        middlewareMode: true,
+        hmr: {
+          server: httpServer,
+        },
+      },
       appType: 'spa',
     });
     app.use(vite.middlewares);
@@ -949,7 +957,7 @@ async function startServer() {
     });
   }
 
-  app.listen(PORT, () => {
+  httpServer.listen(PORT, () => {
     console.log(`Server AI Agent SOP dan Regulasi running on http://localhost:${PORT}`);
   });
 }
